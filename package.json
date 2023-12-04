@@ -1,6 +1,6 @@
 {
 	"name": "transfer-by-ftp",
-	"version": "0.0.2",
+	"version": "0.0.3",
 	"description": "npm包，使用ftp工具一键上传代码。",
 	"bin": "index.js",
 	"scripts": {
