@@ -1,6 +1,6 @@
 {
-  "demo": {
-    "distPath": "",
-    "ftpPath": ""
-  }
+	"demo": {
+		"distPath": "/distPath",
+		"ftpPath": "/ftpPath"
+	}
 }
