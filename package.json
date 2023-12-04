@@ -4,7 +4,7 @@
   "description": "npm包，使用ftp工具一键上传代码。",
   "bin": "index.js",
   "scripts": {
-    "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s"
+    "changelog": "conventional-changelog -p angular -i CHANGELOG.md -w"
   },
   "author": {
     "name": "cora wang",
