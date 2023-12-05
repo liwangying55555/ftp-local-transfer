@@ -22,7 +22,7 @@ const pathConfig = "/pathConfig.json";
 program
 	.version(PKG.version)
 	.description(
-		term.blue(
+		term.green(
 			"\n一键传输本地代码到远程服务器，解放双手\n\n"
 		)
 	);
@@ -222,7 +222,7 @@ async function connectFTP({
 	client.on("ready", async function () {
 		try {
 			term(`---------------------------\n`);
-			term.bgGreen("ftp is onReady\n");
+			term.green("ftp is onReady\n");
 			term(`---------------------------\n`);
 			term("ftpPath: " + ftpPath + "\n");
 			term("distPath: " + distPath + "\n");
