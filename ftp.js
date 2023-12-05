@@ -1,9 +1,6 @@
 const fs = require("fs");
 const path = require("path");
-
-const config = require("./config");
-const distPath = path.join(process.cwd(), config.distPath);
-const ftpPath = config.ftpPath;
+const term = require("terminal-kit").terminal;
 
 async function initClient(client) {
 	client = client;
@@ -120,7 +117,7 @@ async function rmPath(dirPath, client) {
  */
 async function copyFiles(src, dest, client) {
 	try {
-		console.log("copy src: ", src);
+		term("copy src: " + src + "\n");
 
 		const data = await fs.readdirSync(src);
 		for (let dir of data) {
@@ -139,8 +136,6 @@ async function copyFiles(src, dest, client) {
 }
 
 module.exports = {
-	distPath,
-	ftpPath,
 	initClient,
 	rmPath,
 	copyFiles,

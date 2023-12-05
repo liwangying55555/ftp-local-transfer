@@ -1,6 +1,6 @@
 {
-	"name": "transfer-by-ftp",
-	"version": "0.0.4",
+	"name": "ftp-local-transfer",
+	"version": "1.0.0",
 	"description": "npm包，使用ftp工具一键上传代码。",
 	"bin": "./index.js",
 	"scripts": {
@@ -17,12 +17,14 @@
 	"license": "MIT",
 	"repository": {
 		"type": "git",
-		"url": "git@github.com:liwangying55555/transfer-by-ftp.git"
+		"url": "git@github.com:liwangying55555/ftp-local-transfer.git"
 	},
 	"dependencies": {
 		"async": "^3.2.5",
 		"commander": "^11.1.0",
 		"ftp": "^0.3.10",
+		"inquirer": "7.0.3",
+		"inquirer-search-list": "1.2.6",
 		"npm": "<8.0.0",
 		"terminal-kit": "^3.0.1"
 	}
