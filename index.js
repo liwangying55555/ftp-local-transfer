@@ -3,7 +3,6 @@
 const path = require("path");
 const fs = require("fs");
 const program = require("commander");
-const async = require("async");
 const term = require("terminal-kit").terminal;
 const ftp = require("ftp");
 
@@ -112,7 +111,7 @@ function setFTPConfig() {
 		])
 		.then(function (data) {
 			fs.writeFileSync(
-				"./ftpConfig.json",
+				path.join(process.cwd(), "./ftpConfig.json"),
 				JSON.stringify(data)
 			);
 			// term("setting success\n");
@@ -153,7 +152,7 @@ function addProject() {
 			};
 
 			fs.writeFileSync(
-				"./config.json",
+				path.join(process.cwd(), "./config.json"),
 				JSON.stringify(config)
 			);
 		});
