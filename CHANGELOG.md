@@ -1,3 +1,12 @@
+## [1.2.2](https://github.com/liwangying55555/ftp-local-transfer/compare/v1.2.1...v1.2.2) (2023-12-05)
+
+
+### Bug Fixes
+
+* log ([de94f6a](https://github.com/liwangying55555/ftp-local-transfer/commit/de94f6a7864146afc94023178e91a18f23e4b0b7))
+
+
+
 ## [1.2.1](https://github.com/liwangying55555/ftp-local-transfer/compare/v1.2.0...v1.2.1) (2023-12-05)
 
 
