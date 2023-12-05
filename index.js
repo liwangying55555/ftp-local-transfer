@@ -14,6 +14,9 @@ inquirer.registerPrompt(
 
 const PKG = require("./package.json");
 const ftpUtils = require("./ftp");
+const configPath = "/config";
+const ftpConfig = "/ftpConfig.json";
+const pathConfig = "/pathConfig.json";
 
 // 版本号
 program
@@ -27,9 +30,9 @@ program
 program
 	.command("config")
 	.description("展示所有配置")
-	.action(function () {
-		getFTPConfig();
-		getConfig();
+	.action(async function () {
+		await getFTPConfig();
+		await getConfig();
 	});
 
 program
@@ -52,8 +55,8 @@ program.parse(process.argv);
 /** ------------------------------------------------- */
 
 // 读取项目配置信息
-function getConfig() {
-	const config = require("./config.json");
+async function getConfig() {
+	const config = await readFile(pathConfig);
 
 	const data = [
 		["distPath[本地目录]", "ftpPath[远程服务器目录]"],
@@ -71,8 +74,8 @@ function getConfig() {
 }
 
 // 读取ftp配置
-function getFTPConfig() {
-	const config = require("./ftpConfig.json");
+async function getFTPConfig() {
+	const config = await readFile(ftpConfig);
 
 	for (let name in config) {
 		const item = config[name];
@@ -109,9 +112,13 @@ function setFTPConfig() {
 				validate: value => value.trim() !== "",
 			},
 		])
-		.then(function (data) {
+		.then(async function (data) {
+			// 初始化path
+			await readFile(ftpConfig);
+
+			// 写入
 			fs.writeFileSync(
-				path.join(__dirname, "/ftpConfig.json"),
+				path.join(__dirname, configPath, ftpConfig),
 				JSON.stringify(data)
 			);
 		});
@@ -140,8 +147,8 @@ function addProject() {
 				validate: value => value.trim() !== "",
 			},
 		])
-		.then(function (data) {
-			let config = require("./config.json");
+		.then(async function (data) {
+			let config = await readFile(pathConfig);
 			config = {
 				...config,
 				[data.name]: {
@@ -151,15 +158,15 @@ function addProject() {
 			};
 
 			fs.writeFileSync(
-				path.join(__dirname, "/config.json"),
+				path.join(__dirname, configPath, pathConfig),
 				JSON.stringify(config)
 			);
 		});
 }
 
-function startFTP() {
-	const FTPConfig = require("./ftpConfig.json");
-	const config = require("./config.json");
+async function startFTP() {
+	const FTPConfig = await readFile(ftpConfig);
+	const config = await readFile(pathConfig);
 
 	for (let key in FTPConfig) {
 		if (!FTPConfig[key]) {
@@ -255,4 +262,67 @@ async function connectFTP({
 		password,
 		keepalive: 10000,
 	});
+}
+
+function readDir() {
+	return new Promise(function (resolve) {
+		fs.readdir(
+			path.join(__dirname, configPath),
+			function (err, files) {
+				if (err) {
+					resolve(
+						fs.mkdirSync(path.join(__dirname, configPath))
+					);
+				} else {
+					resolve(files);
+				}
+			}
+		);
+	});
+}
+
+function checkFile(fileName) {
+	return new Promise(function (resolve) {
+		fs.readFile(
+			path.join(__dirname, configPath, fileName),
+			"utf8",
+			function (err, file) {
+				if (err) {
+					resolve(
+						fs.writeFileSync(
+							path.join(__dirname, configPath, fileName),
+							JSON.stringify(
+								fileName === ftpConfig
+									? {
+											host: "",
+											post: "",
+											user: "",
+											password: "",
+									  }
+									: {}
+							)
+						)
+					);
+				} else {
+					resolve(file);
+				}
+			}
+		);
+	});
+}
+
+async function readFile(fileName) {
+	// 查询文件夹，没有则新增
+	const dir = await readDir();
+	if (dir) {
+		// 查询文件，没有则新增
+		const file = await checkFile(fileName);
+		if (file) {
+			return JSON.parse(file);
+		} else {
+			return readFile(fileName);
+		}
+	} else {
+		return readFile(fileName);
+	}
 }
