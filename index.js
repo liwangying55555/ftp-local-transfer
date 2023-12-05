@@ -111,10 +111,9 @@ function setFTPConfig() {
 		])
 		.then(function (data) {
 			fs.writeFileSync(
-				path.join(process.cwd(), "./ftpConfig.json"),
+				path.join(__dirname, "/ftpConfig.json"),
 				JSON.stringify(data)
 			);
-			// term("setting success\n");
 		});
 }
 
@@ -152,7 +151,7 @@ function addProject() {
 			};
 
 			fs.writeFileSync(
-				path.join(process.cwd(), "./config.json"),
+				path.join(__dirname, "/config.json"),
 				JSON.stringify(config)
 			);
 		});
