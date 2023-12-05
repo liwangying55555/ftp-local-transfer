@@ -1,3 +1,12 @@
+## [1.2.1](https://github.com/liwangying55555/ftp-local-transfer/compare/v1.2.0...v1.2.1) (2023-12-05)
+
+
+### Features
+
+* 增加默认配置文件 ([7d84e90](https://github.com/liwangying55555/ftp-local-transfer/commit/7d84e90ba2ccb44800018850d367dfafbc5dcf06))
+
+
+
 # [1.2.0](https://github.com/liwangying55555/ftp-local-transfer/compare/v1.1.1...v1.2.0) (2023-12-05)
 
 
