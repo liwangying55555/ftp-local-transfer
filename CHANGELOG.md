@@ -1,4 +1,13 @@
-# [1.0.0](https://github.com/liwangying55555/ftp-local-transfer/compare/v0.0.4...v1.0.0) (2023-12-05)
+# [1.1.0](https://github.com/liwangying55555/ftp-local-transfer/compare/v1.0.1...v1.1.0) (2023-12-05)
+
+
+### Bug Fixes
+
+* 修复引用路径 ([b61a191](https://github.com/liwangying55555/ftp-local-transfer/commit/b61a191c257cdc885044294cfa7383403a53022a))
+
+
+
+## [1.0.1](https://github.com/liwangying55555/ftp-local-transfer/compare/v0.0.4...v1.0.1) (2023-12-05)
 
 
 ### Features
