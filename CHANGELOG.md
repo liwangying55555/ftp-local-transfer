@@ -1,3 +1,12 @@
+## [1.2.3](https://github.com/liwangying55555/ftp-local-transfer/compare/v1.2.2...v1.2.3) (2023-12-06)
+
+
+### Features
+
+* 拷贝文件时直接替换 ([e58eda0](https://github.com/liwangying55555/ftp-local-transfer/commit/e58eda01e31d3f026f8d52ee8841d0137a1f930c))
+
+
+
 ## [1.2.2](https://github.com/liwangying55555/ftp-local-transfer/compare/v1.2.1...v1.2.2) (2023-12-05)
 
 
