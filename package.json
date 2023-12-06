@@ -1,6 +1,6 @@
 {
 	"name": "ftp-local-transfer",
-	"version": "1.2.3",
+	"version": "1.3.0",
 	"description": "npm包，使用ftp工具一键上传代码。",
 	"bin": "./index.js",
 	"scripts": {
