@@ -4,7 +4,7 @@ const path = require("path");
 const fs = require("fs");
 const program = require("commander");
 const term = require("terminal-kit").terminal;
-const ftp = require("ftp");
+const ftp = require("basic-ftp");
 
 const inquirer = require("inquirer");
 inquirer.registerPrompt(
@@ -217,46 +217,42 @@ async function connectFTP({
 	distPath,
 	ftpPath,
 }) {
-	const client = new ftp();
+	const client = new ftp.Client();
+	client.ftp.verbose = false;
 
-	client.on("ready", async function () {
-		try {
-			term(`---------------------------\n`);
-			term.green("ftp is onReady\n");
-			term(`---------------------------\n`);
-			term("ftpPath: " + ftpPath + "\n");
-			term("distPath: " + distPath + "\n\n");
+	try {
+		await client.access({
+			host,
+			user,
+			password,
+		});
 
-			await ftpUtils.copyFiles(distPath, ftpPath, client);
-
-			client.end();
-		} catch (error) {
-			term.red(error);
-			process.exit();
-		}
-	});
-
-	client.on("close", () => {
 		term(`---------------------------\n`);
-		term.green("transfer has done\n");
+		term.green("ftp is onReady\n");
 		term(`---------------------------\n`);
-		process.exit();
-	});
-	client.on("error", function (err) {
+		term("ftpPath: " + ftpPath + "\n");
+		term("distPath: " + distPath + "\n\n");
+
+		await term.spinner("unboxing-color");
+		term(" uploading...");
+
+		// 一键拷贝 递归什么的都不需要了
+		await client.uploadFromDir(distPath, ftpPath);
+	} catch (error) {
 		term.red(
-			"ftp client has an error : " +
-				JSON.stringify(err) +
+			"\n\nftp client has an error : " +
+				JSON.stringify(error) +
 				"\n"
 		);
 		process.exit();
-	});
-	client.connect({
-		host,
-		port,
-		user,
-		password,
-		keepalive: 10000,
-	});
+	}
+
+	client.close();
+
+	term(`\n\n---------------------------\n`);
+	term.green("transfer has done\n");
+	term(`---------------------------\n`);
+	process.exit();
 }
 
 function readDir() {
