@@ -60,10 +60,10 @@ async function rmdir(dirPath, client) {
  * @param {string} src 拷贝文件的路径
  * @param {string} dest 目标路径
  */
-async function put(src, dest, client) {
+async function append(src, dest, client) {
 	const rs = fs.createReadStream(src);
 	return new Promise((resolve, reject) => {
-		client.put(rs, dest, err => {
+		client.append(rs, dest, err => {
 			if (err) {
 				reject(err);
 			}
@@ -110,6 +110,17 @@ async function rmPath(dirPath, client) {
 	}
 }
 
+function checkIsFile(dir) {
+	return new Promise((resolve, reject) => {
+		fs.stat(dir, (err, stats) => {
+			if (err) {
+				reject(err);
+			}
+			resolve(stats.isFile());
+		});
+	});
+}
+
 /**
  *
  * @param {string} src  拷贝路径
@@ -117,18 +128,28 @@ async function rmPath(dirPath, client) {
  */
 async function copyFiles(src, dest, client) {
 	try {
-		term("copy src: " + src + "\n");
+		const srcList = await fs.readdirSync(src);
+		const destList = await list(dest, client);
 
-		const data = await fs.readdirSync(src);
-		for (let dir of data) {
+		for (let dir of srcList) {
 			const _src = path.join(src, dir);
 			const _dest = `${dest}/${dir}`;
-			if (/\./g.test(dir)) {
-				await put(_src, _dest, client);
-			} else {
-				await mkdir(_dest, client);
-				await copyFiles(_src, _dest, client);
+
+			// 文件 直接拷贝
+			if (await checkIsFile(_src)) {
+				await append(_src, _dest, client);
+				term("copy dest: " + _dest + "\n");
+				continue;
 			}
+
+			// 判断目录是否存在
+			if (
+				!destList.some(m => m.type == "d" && m.name == dir)
+			) {
+				await mkdir(_dest, client);
+				term.yellow("mkdir: " + _dest + "\n");
+			}
+			await copyFiles(_src, _dest, client);
 		}
 	} catch (error) {
 		throw error;

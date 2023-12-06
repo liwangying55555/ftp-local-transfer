@@ -225,13 +225,8 @@ async function connectFTP({
 			term.green("ftp is onReady\n");
 			term(`---------------------------\n`);
 			term("ftpPath: " + ftpPath + "\n");
-			term("distPath: " + distPath + "\n");
-			console.log();
+			term("distPath: " + distPath + "\n\n");
 
-			// 1.删除ftp目录下的所有文件
-			await ftpUtils.rmPath(ftpPath, client);
-
-			// 2.拷贝
 			await ftpUtils.copyFiles(distPath, ftpPath, client);
 
 			client.end();
