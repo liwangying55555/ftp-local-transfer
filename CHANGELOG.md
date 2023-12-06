@@ -1,3 +1,17 @@
+# [1.3.0](https://github.com/liwangying55555/ftp-local-transfer/compare/v1.2.3...v1.3.0) (2023-12-06)
+
+
+### Bug Fixes
+
+* 去除port配置 ([5d78d21](https://github.com/liwangying55555/ftp-local-transfer/commit/5d78d2117b7ef653160f551c755aeeafd22cf4e7))
+
+
+### Features
+
+* 传输插件改为basic-ftp ([2e12da5](https://github.com/liwangying55555/ftp-local-transfer/commit/2e12da56b3e373475bdf57db55c7c7308723dca1))
+
+
+
 ## [1.2.3](https://github.com/liwangying55555/ftp-local-transfer/compare/v1.2.2...v1.2.3) (2023-12-06)
 
 
