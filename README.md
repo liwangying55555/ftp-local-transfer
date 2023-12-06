@@ -1,6 +1,6 @@
 # ftp-local-transfer
 
-在本地一键上传打包之后的项目文件到远程服务器，传输使用了ftp工具。
+在本地一键上传打包之后的项目文件到远程服务器，传输使用了`basic-ftp`工具。
 
 所有账户信息均保存配置文件中，支持一键修改。
 
@@ -27,7 +27,6 @@ ftp-local-transfer config
 # 配置ftp账户
 ftp-local-transfer setFTP
 # 请配置ftp host(XXX.XXX.XXX.XX)
-# 请配置端口 port(默认为21)
 # 请配置用户名
 # 请配置密码
 ```

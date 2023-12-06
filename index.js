@@ -95,12 +95,6 @@ function setFTPConfig() {
 			},
 			{
 				type: "input",
-				name: "port",
-				message: "请配置端口 port",
-				default: "21",
-			},
-			{
-				type: "input",
 				name: "user",
 				message: "请配置用户名",
 				validate: value => value.trim() !== "",
@@ -211,7 +205,6 @@ async function startFTP() {
  */
 async function connectFTP({
 	host,
-	port,
 	user,
 	password,
 	distPath,
